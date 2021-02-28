@@ -20,7 +20,7 @@ html, body {
 
 .title-box {
   height: 60px;
-  background: url('/code/assets/images/login_title.png') no-repeat center;
+  background: url('/assets/images/login_title.png') no-repeat center;
 }
 
 .reg-box {

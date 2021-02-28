@@ -32,7 +32,7 @@ $(function () {
         }
     })
 
-    //监听注册表单的提交时间
+    //监听注册表单的提交事件
     $('#form_reg').on('submit', function (e) {
         //阻止表单的默认提交行为
         e.preventDefault()
@@ -42,12 +42,33 @@ $(function () {
             //判断是否注册成功，如果不成功则return出去
             function (res) {
                 if (res.status !== 0) {
-                    return layer.msg(res.message);
+                    return layer.msg(res.message)
                 }
+                // console.log(11);
                 layer.msg("注册成功,请登录！")
-            },
-            $("#link_login").click()
-        );
+                $("#link_login").click()
+            }
+        )
     })
+    //监听表单的提交事件
+    $('#form_login').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '/api/login',
+            data: $(this).serialize(),
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg('登陆失败！');
+                }
+                layer.msg('登陆成功！');
+                // console.log(res.token);
+                //将登录成功得到的token字符串，保存到localStorage中
+                localStorage.setItem('token', res.token)
+                //跳转到后台主页
+                location.href = '/index.html'
+            }
+        })
 
+    })
 })
