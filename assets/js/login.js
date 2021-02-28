@@ -12,6 +12,7 @@ $(function () {
 
     // 从 layui中获取form对象
     var form = layui.form
+    var layer = layui.layer
     //通过form.verify()函数中，自定义校验规则
     form.verify({
         //自定义一个pwd 的校验规则
@@ -36,15 +37,16 @@ $(function () {
         //阻止表单的默认提交行为
         e.preventDefault()
         //发起一个Ajax的post请求 包括三个参数 URL用户名和密码
-        $.post("http://ajax.frontend.itheima.net/api/reguser", { username: $('#form_reg [name =username]').val(), password: $('#form_reg [name =password]').val() },
+        var data = { username: $('#form_reg [name =username]').val(), password: $('#form_reg [name =password]').val() }
+        $.post("http://ajax.frontend.itheima.net/api/reguser", data,
             //判断是否注册成功，如果不成功则return出去
             function (res) {
                 if (res.status !== 0) {
-                    return console.log(res.message);
+                    return layer.msg(res.message);
                 }
-                console.log(res.message);
+                layer.msg("注册成功,请登录！")
             },
-
+            $("#link_login").click()
         );
     })
 
