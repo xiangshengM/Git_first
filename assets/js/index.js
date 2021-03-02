@@ -1,6 +1,6 @@
 $(function () {
     //调用getUserInfo获取用户基本信息
-
+    getUserInfo()
 })
 //获取用户的基本信息
 function getUserInfo() {
@@ -8,30 +8,29 @@ function getUserInfo() {
         method: 'GET',
         url: '/my/userinfo',
         // headers请求头配置对象
-        // headers: {
-        //     Authorization: localStorage.getItem('token') || ''
-        // },
+        headers: {
+            Authorization: localStorage.getItem('token') || ''
+        },
         success: function (res) {
             // console.log(res);
-            if (res.srarus !== 0) {
+            if (res.status !== 0) {
                 return layui.layer.msg('获取用户信息失败')
             }
+            // console.log(res.data);
             renderAvatar(res.data)
         },
-        // //控制用户的访问权限
-        // //不论成功还是失败，最终都会调用complete回调函数
+        // 控制用户的访问权限
+        // 不论成功还是失败，最终都会调用complete回调函数
         // complete: function (res) {
-        //     // console.log('执行了 complete回调：');
-        //     // console.log(res);
-        //     if (res.responseJSON.sratus === 1 && res.responseJSON.message === '身份验证失败') {
+        //     console.log('执行了 complete回调：');
+        //     console.log(res);
+        //     if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
         //         //1.强行清空 token
         //         localStorage.removeItem('token')
         //         //2.强行跳转到登录页面
-        //         localStorage.href = '/login.html'
+        //         location.href = '/login.html'
         //     }
         // }
-
-
     })
 
 }
@@ -43,7 +42,8 @@ function renderAvatar(user) {
     //2.设置欢迎的文本
     $('#welcome').html('欢迎&nbsp;&nbsp;' + name)
     //3.渲染图片的头像
-    if (user.suer_pic !== null) {
+    if (user.user_pic !== null) {
+        // console.log(1);
         //3.1渲染图片头像
         $('.layui-nav-img').attr('src', user.user_pic).show()
         $('.text-avatar').hide()

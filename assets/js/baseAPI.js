@@ -16,7 +16,7 @@ $.ajaxPrefilter(function (options) {
         }
     }
 
-    //全局统一挂载，complete回调函数
+    // 全局统一挂载，complete回调函数
     options.complete = function (res) {
         // console.log('执行了 complete回调：');
         // console.log(res);
