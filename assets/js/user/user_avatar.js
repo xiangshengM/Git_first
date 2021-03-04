@@ -65,6 +65,20 @@ $(function () {
                 }
                 layer.msg('头像上传成功!');
                 window.parent.getUserInfo()
+                console.log($('#image'));
+                //保留修改后的图片成为默认图片
+                // $.ajax({
+                //     type: "get",
+                //     url: "/my/userinfo",
+                //     success: function (res) {
+                //         if (res.status !== 0) {
+                //             return layui.layer.msg("获取用户信息失败");
+                //         }
+                //         $('#image').attr('res', res.data.user_pic)
+                //         console.log(res)
+                //         console.log(res.data.user_pic);
+                //     }
+                // });
             }
         })
 
